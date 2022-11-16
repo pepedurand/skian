@@ -52,27 +52,27 @@ export class PizzaController {
     }
   };
 
-  //   public editPizza = async (req: Request, res: Response) => {
-  //     try {
-  //       const input: any = {
-  //         token: req.headers.authorization,
-  //         pizza_id: req.params.pizza_id,
-  //         name: req.body.name,
-  //         description: req.body.description,
-  //         additional_price: req.body.additional_price,
-  //       };
+  public editPizza = async (req: Request, res: Response) => {
+    try {
+      const input: any = {
+        token: req.headers.authorization,
+        pizza_id: req.params.pizza_id,
+        name: req.body.name,
+        description: req.body.description,
+        additional_price: req.body.additional_price,
+      };
 
-  //       const response = await this.pizzaBusiness.editPizza(input);
+      const response = await this.pizzaBusiness.editPizza(input);
 
-  //       res.status(200).send(response);
-  //     } catch (error) {
-  //       console.log(error);
+      res.status(200).send(response);
+    } catch (error) {
+      console.log(error);
 
-  //       if (error instanceof Error) {
-  //         return res.status(400).send({ message: error.message });
-  //       }
+      if (error instanceof Error) {
+        return res.status(400).send({ message: error.message });
+      }
 
-  //       res.status(500).send({ message: "Erro inesperado" });
-  //     }
-  //   };
+      res.status(500).send({ message: "Erro inesperado" });
+    }
+  };
 }

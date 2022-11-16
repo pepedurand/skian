@@ -104,42 +104,42 @@ export default class PizzaBusiness {
 
     return response;
   };
-  // public editPizza = async (input: any) => {
-  //   const { token, id, name, description, additional_price } = input;
+  public editPizza = async (input: any) => {
+    const { token, pizza_id, name, description, additional_price } = input;
 
-  //   const payload = this.authenticator.getTokenData(token);
+    const payload = this.authenticator.getTokenData(token);
 
-  //   if (!payload) {
-  //     throw new Error("Token inválido ou faltando");
-  //   }
+    if (!payload) {
+      throw new Error("Token inválido ou faltando");
+    }
 
-  //   if (payload.role !== UserRole.ADMIN) {
-  //     throw new Error("Apenas admins podem alterar status das pizzas");
-  //   }
+    if (payload.role !== UserRole.ADMIN) {
+      throw new Error("Apenas admins podem alterar status das pizzas");
+    }
 
-  //   const selectedPizza = await this.pizzaDatabase.findPizzaById(id);
+    const selectedPizza = await this.pizzaDatabase.findPizzaById(pizza_id);
 
-  //   if (!selectedPizza) {
-  //     throw new Error("Pizza a ser editada não existe");
-  //   }
+    if (!selectedPizza) {
+      throw new Error("Pizza a ser editada não existe");
+    }
 
-  //   const editedPizza = new Pizza(
-  //     selectedPizza.pizza_id,
-  //     selectedPizza.name,
-  //     selectedPizza.description,
-  //     selectedPizza.additional_price
-  //   );
+    const editedPizza = new Pizza(
+      selectedPizza.pizza_id,
+      selectedPizza.name,
+      selectedPizza.description,
+      selectedPizza.additional_price
+    );
 
-  //   name && editedPizza.setName(name);
-  //   description && editedPizza.setDescription(description);
-  //   additional_price && editedPizza.setAdditionalPrice(additional_price);
+    name && editedPizza.setName(name);
+    description && editedPizza.setDescription(description);
+    additional_price && editedPizza.setAdditionalPrice(additional_price);
 
-  //   await this.pizzaDatabase.editPizza(editedPizza);
+    await this.pizzaDatabase.editPizza(editedPizza);
 
-  //   const response = {
-  //     message: "Edição realizada com sucesso",
-  //   };
+    const response = {
+      message: "Edição realizada com sucesso",
+    };
 
-  //   return response;
-  // };
+    return response;
+  };
 }

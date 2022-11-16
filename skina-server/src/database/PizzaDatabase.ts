@@ -30,25 +30,25 @@ export default class PizzaDatabase extends BaseDatabase {
 
     return pizzaListAtDb;
   };
-  //   public findPizzaById = async (id: string) => {
-  //     const editedPizza: PizzaTypesAtDatabase[] = await BaseDatabase.connections(
-  //       PizzaDatabase.PIZZAS
-  //     )
-  //       .select()
-  //       .where({ id });
+  public findPizzaById = async (pizza_id: string) => {
+    const foundPizza: PizzaTypesAtDatabase[] = await BaseDatabase.connections(
+      PizzaDatabase.PIZZAS
+    )
+      .select()
+      .where({ pizza_id });
 
-  //     return editedPizza[0];
-  //   };
-  //   public editPizza = async (pizza: Pizza) => {
-  //     const updatedPizza: PizzaTypesAtDatabase = {
-  //       pizza_id: pizza.getId(),
-  //       name: pizza.getName(),
-  //       description: pizza.getDescription(),
-  //       additional_price: pizza.getAdditionalPrice(),
-  //     };
+    return foundPizza[0];
+  };
+  public editPizza = async (pizza: Pizza) => {
+    const updatedPizza: PizzaTypesAtDatabase = {
+      pizza_id: pizza.getId(),
+      name: pizza.getName(),
+      description: pizza.getDescription(),
+      additional_price: pizza.getAdditionalPrice(),
+    };
 
-  //     await BaseDatabase.connections(PizzaDatabase.PIZZAS)
-  //       .update(updatedPizza)
-  //       .where({ id: updatedPizza.additional_price });
-  //   };
+    await BaseDatabase.connections(PizzaDatabase.PIZZAS)
+      .update(updatedPizza)
+      .where({ pizza_id: updatedPizza.pizza_id });
+  };
 }
