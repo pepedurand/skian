@@ -31,3 +31,11 @@ export interface DrinkRequisitionParams {
   size: string;
   price: number;
 }
+
+export interface ComboRequisitionsParams {
+  token: string | undefined;
+  combo_id?: string;
+  name: string;
+  description: string;
+  price: number;
+}
