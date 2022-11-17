@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 import UserBusiness from "../business/UserBusiness";
-import { SingUpInputTypes } from "../types";
+import { LoginParams, SingUpInputTypes } from "../types";
 
 export default class UserController {
   constructor(protected userBusiness: UserBusiness) {}
@@ -26,7 +26,7 @@ export default class UserController {
   };
   public login = async (req: Request, res: Response) => {
     try {
-      const input: any = {
+      const input: LoginParams = {
         email: req.body.email,
         password: req.body.password,
       };

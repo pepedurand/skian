@@ -1,13 +1,14 @@
 import { Request, Response } from "express";
 import PizzaBusiness from "../business/PizzaBusiness";
 import { GetPizzas } from "../model/Pizza";
+import { PizzaRequisitionParams } from "../types";
 
 export class PizzaController {
   constructor(protected pizzaBusiness: PizzaBusiness) {}
 
   public createPizza = async (req: Request, res: Response) => {
     try {
-      const input: any = {
+      const input: PizzaRequisitionParams = {
         token: req.headers.authorization,
         name: req.body.name,
         description: req.body.description,
@@ -54,7 +55,7 @@ export class PizzaController {
 
   public editPizza = async (req: Request, res: Response) => {
     try {
-      const input: any = {
+      const input: PizzaRequisitionParams = {
         token: req.headers.authorization,
         pizza_id: req.params.pizza_id,
         name: req.body.name,
@@ -77,7 +78,7 @@ export class PizzaController {
   };
   public deletePizza = async (req: Request, res: Response) => {
     try {
-      const input: any = {
+      const input: PizzaRequisitionParams = {
         token: req.headers.authorization,
         pizza_id: req.params.pizza_id,
         name: req.body.name,

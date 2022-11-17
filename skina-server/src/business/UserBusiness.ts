@@ -1,8 +1,9 @@
 import UserDatabase from "../database/UserDatabase";
-import User from "../model/User";
+import User, { UserTypesAtDatabase } from "../model/User";
 import Authenticator, { authenticationData } from "../services/Authenticator";
 import HashManager from "../services/HashManager";
 import { IdGenerator } from "../services/IdGenerator";
+import { LoginParams } from "../types";
 
 const validEmail = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/i;
 
@@ -14,7 +15,7 @@ export default class UserBusiness {
     protected hashManager: HashManager
   ) {}
 
-  public signup = async (input: any) => {
+  public signup = async (input: UserTypesAtDatabase) => {
     const name = input.name;
     const email = input.email;
     const whatsapp = input.whatsapp;
@@ -28,7 +29,7 @@ export default class UserBusiness {
       throw new Error("Favor, insira um email válido");
     }
 
-    if (password.lenght < 6) {
+    if (password.length < 6) {
       throw new Error("A senha deve ter pelo menos 6 caracteres");
     }
     if (role && role !== "admin" && role !== "normal") {
@@ -66,7 +67,7 @@ export default class UserBusiness {
     return response;
   };
 
-  public login = async (input: any) => {
+  public login = async (input: LoginParams) => {
     const email = input.email;
     const password = input.password;
 

@@ -7,7 +7,7 @@ import Pizza, {
 import Authenticator from "../services/Authenticator";
 import HashManager from "../services/HashManager";
 import { IdGenerator } from "../services/IdGenerator";
-import { UserRole } from "../types";
+import { PizzaRequisitionParams, UserRole } from "../types";
 
 export default class PizzaBusiness {
   constructor(
@@ -16,7 +16,7 @@ export default class PizzaBusiness {
     protected idGenerator: IdGenerator,
     protected hashManager: HashManager
   ) {}
-  public createPizza = async (input: any) => {
+  public createPizza = async (input: PizzaRequisitionParams) => {
     const name = input.name;
     const description = input.description;
     const additional_price = input.additional_price;
@@ -25,7 +25,7 @@ export default class PizzaBusiness {
     if (!name || !description) {
       throw new Error("Por favor, preencha o sabor e a descrição da pizza.");
     }
-    const payload = this.authenticator.getTokenData(token);
+    const payload = this.authenticator.getTokenData(token as string);
 
     if (!payload) {
       throw new Error("Token inválido ou faltando");
@@ -88,7 +88,7 @@ export default class PizzaBusiness {
         pizzaData.additional_price
       );
 
-      const searchResponse: any = {
+      const searchResponse: PizzaTypesAtDatabase = {
         pizza_id: pizza.getId(),
         name: pizza.getName(),
         description: pizza.getDescription(),
@@ -98,23 +98,31 @@ export default class PizzaBusiness {
       return searchResponse;
     });
 
-    const response: any = {
+    const response = {
       pizzas,
     };
 
     return response;
   };
-  public editPizza = async (input: any) => {
+  public editPizza = async (input: PizzaRequisitionParams) => {
     const { token, pizza_id, name, description, additional_price } = input;
+
+    if (!token) {
+      throw new Error("Token inválido ou faltando");
+    }
 
     const payload = this.authenticator.getTokenData(token);
 
     if (!payload) {
-      throw new Error("Token inválido ou faltando");
+      throw new Error("Token inválido");
     }
 
     if (payload.role !== UserRole.ADMIN) {
       throw new Error("Apenas admins podem alterar status das pizzas");
+    }
+
+    if (!pizza_id) {
+      throw new Error("Favor insira o id da pizza a ser alterada");
     }
 
     const selectedPizza = await this.pizzaDatabase.findPizzaById(pizza_id);
@@ -142,17 +150,25 @@ export default class PizzaBusiness {
 
     return response;
   };
-  public deletePizza = async (input: any) => {
-    const { token, pizza_id, name, description, additional_price } = input;
+  public deletePizza = async (input: PizzaRequisitionParams) => {
+    const { token, pizza_id } = input;
+
+    if (!token) {
+      throw new Error("Token inválido ou faltando");
+    }
 
     const payload = this.authenticator.getTokenData(token);
 
     if (!payload) {
-      throw new Error("Token inválido ou faltando");
+      throw new Error("Token inválido");
     }
 
     if (payload.role !== UserRole.ADMIN) {
       throw new Error("Apenas admins podem alterar status das pizzas");
+    }
+
+    if (!pizza_id) {
+      throw new Error("Favor insira o id da pizza a ser alterada");
     }
 
     const selectedPizza = await this.pizzaDatabase.findPizzaById(pizza_id);
