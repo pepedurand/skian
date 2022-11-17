@@ -51,4 +51,16 @@ export default class PizzaDatabase extends BaseDatabase {
       .update(updatedPizza)
       .where({ pizza_id: updatedPizza.pizza_id });
   };
+  public deletePizza = async (pizza: Pizza) => {
+    const deletedPizza: PizzaTypesAtDatabase = {
+      pizza_id: pizza.getId(),
+      name: pizza.getName(),
+      description: pizza.getDescription(),
+      additional_price: pizza.getAdditionalPrice(),
+    };
+
+    await BaseDatabase.connections(PizzaDatabase.PIZZAS)
+      .delete()
+      .where({ pizza_id: deletedPizza.pizza_id });
+  };
 }

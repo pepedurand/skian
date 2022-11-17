@@ -75,4 +75,27 @@ export class PizzaController {
       res.status(500).send({ message: "Erro inesperado" });
     }
   };
+  public deletePizza = async (req: Request, res: Response) => {
+    try {
+      const input: any = {
+        token: req.headers.authorization,
+        pizza_id: req.params.pizza_id,
+        name: req.body.name,
+        description: req.body.description,
+        additional_price: req.body.additional_price,
+      };
+
+      const response = await this.pizzaBusiness.deletePizza(input);
+
+      res.status(200).send(response);
+    } catch (error) {
+      console.log(error);
+
+      if (error instanceof Error) {
+        return res.status(400).send({ message: error.message });
+      }
+
+      res.status(500).send({ message: "Erro inesperado" });
+    }
+  };
 }

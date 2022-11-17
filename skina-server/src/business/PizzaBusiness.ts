@@ -142,4 +142,38 @@ export default class PizzaBusiness {
 
     return response;
   };
+  public deletePizza = async (input: any) => {
+    const { token, pizza_id, name, description, additional_price } = input;
+
+    const payload = this.authenticator.getTokenData(token);
+
+    if (!payload) {
+      throw new Error("Token inválido ou faltando");
+    }
+
+    if (payload.role !== UserRole.ADMIN) {
+      throw new Error("Apenas admins podem alterar status das pizzas");
+    }
+
+    const selectedPizza = await this.pizzaDatabase.findPizzaById(pizza_id);
+
+    if (!selectedPizza) {
+      throw new Error("Pizza a ser excluída não existe");
+    }
+
+    const deletedPizza = new Pizza(
+      selectedPizza.pizza_id,
+      selectedPizza.name,
+      selectedPizza.description,
+      selectedPizza.additional_price
+    );
+
+    await this.pizzaDatabase.deletePizza(deletedPizza);
+
+    const response = {
+      message: "Pizza excluída com sucesso",
+    };
+
+    return response;
+  };
 }
