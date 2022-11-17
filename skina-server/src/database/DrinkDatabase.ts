@@ -1,4 +1,4 @@
-import Drink, { DrinkTypesAtDatabase } from "../model/Drink";
+import Drink, { DrinkTypesAtDatabase, GetDrinksSearch } from "../model/Drink";
 import { BaseDatabase } from "./BaseDatabase";
 
 export default class DrinkDatabase extends BaseDatabase {
@@ -13,23 +13,23 @@ export default class DrinkDatabase extends BaseDatabase {
     };
     await BaseDatabase.connections(DrinkDatabase.DRINKS).insert(newDrink);
   };
-  //   public getPizzas = async (input: GetPizzasSearch) => {
-  //     const search = input.search;
-  //     const order = input.order;
-  //     const sort = input.sort;
-  //     const limit = input.limit;
-  //     const offset = input.offset;
+  public getDrinks = async (input: GetDrinksSearch) => {
+    const search = input.search;
+    const order = input.order;
+    const sort = input.sort;
+    const limit = input.limit;
+    const offset = input.offset;
 
-  //     const pizzaListAtDb: PizzaTypesAtDatabase[] =
-  //       await BaseDatabase.connections(PizzaDatabase.PIZZAS)
-  //         .select()
-  //         .where("name", "LIKE", `%${search}%`)
-  //         .orderBy(order, sort)
-  //         .limit(limit)
-  //         .offset(offset);
+    const drinkListAtDb: DrinkTypesAtDatabase[] =
+      await BaseDatabase.connections(DrinkDatabase.DRINKS)
+        .select()
+        .where("name", "LIKE", `%${search}%`)
+        .orderBy(order, sort)
+        .limit(limit)
+        .offset(offset);
 
-  //     return pizzaListAtDb;
-  //   };
+    return drinkListAtDb;
+  };
   //   public findPizzaById = async (pizza_id: string) => {
   //     const foundPizza: PizzaTypesAtDatabase[] = await BaseDatabase.connections(
   //       PizzaDatabase.PIZZAS

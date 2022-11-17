@@ -5,6 +5,22 @@ export interface DrinkTypesAtDatabase {
   price: number;
 }
 
+export interface GetDrinks {
+  token: string | undefined;
+  search: string;
+  order: string;
+  sort: string;
+  limit: string;
+  page: string;
+}
+
+export interface GetDrinksSearch {
+  search: string;
+  order: string;
+  sort: string;
+  limit: number;
+  offset: number;
+}
 export default class Drink {
   constructor(
     private drink_id: string,

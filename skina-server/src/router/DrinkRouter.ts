@@ -18,3 +18,4 @@ const pizzaController = new DrinkController(
 );
 
 drinkRouter.post("/createDrink", pizzaController.createDrink);
+drinkRouter.get("/drinks", pizzaController.getDrinks);

@@ -19,5 +19,5 @@ const pizzaController = new PizzaController(
 
 pizzaRouter.post("/createPizza", pizzaController.createPizza);
 pizzaRouter.put("/:pizza_id", pizzaController.editPizza);
-pizzaRouter.get("/", pizzaController.getPizzas);
+pizzaRouter.get("/pizzas", pizzaController.getPizzas);
 pizzaRouter.delete("/:pizza_id", pizzaController.deletePizza);
