@@ -51,7 +51,7 @@ export default class Pizza {
   public setDescription = (newDescription: string) => {
     this.description = newDescription;
   };
-  public setAdditionalPrice = (newStatus: number) => {
-    this.additional_price = newStatus;
+  public setAdditionalPrice = (newAdditionalPrice: number) => {
+    this.additional_price = newAdditionalPrice;
   };
 }
