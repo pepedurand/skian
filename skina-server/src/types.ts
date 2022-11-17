@@ -23,3 +23,11 @@ export interface PizzaRequisitionParams {
   description: string;
   additional_price: number;
 }
+
+export interface DrinkRequisitionParams {
+  token: string | undefined;
+  pizza_id?: string;
+  name: string;
+  size: string;
+  price: number;
+}
