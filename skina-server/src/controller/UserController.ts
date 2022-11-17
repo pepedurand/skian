@@ -1,5 +1,6 @@
 import { Request, Response } from "express";
 import UserBusiness from "../business/UserBusiness";
+import { UserTypesAtDatabase } from "../model/User";
 import { LoginParams, SingUpInputTypes } from "../types";
 
 export default class UserController {
@@ -14,7 +15,9 @@ export default class UserController {
         password: req.body.password,
         role: req.body.role,
       };
-      const response = await this.userBusiness.signup(input);
+      const response = await this.userBusiness.signup(
+        input as UserTypesAtDatabase
+      );
 
       res.status(201).send(response);
     } catch (error: unknown) {
