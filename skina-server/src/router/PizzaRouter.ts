@@ -18,6 +18,6 @@ const pizzaController = new PizzaController(
 );
 
 pizzaRouter.post("/createPizza", pizzaController.createPizza);
-pizzaRouter.put("/:pizza_id", pizzaController.editPizza);
+pizzaRouter.put("/editPizza/:pizza_id", pizzaController.editPizza);
 pizzaRouter.get("/pizzas", pizzaController.getPizzas);
-pizzaRouter.delete("/:pizza_id", pizzaController.deletePizza);
+pizzaRouter.delete("/deletepizza/:pizza_id", pizzaController.deletePizza);

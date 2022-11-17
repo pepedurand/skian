@@ -26,7 +26,7 @@ export interface PizzaRequisitionParams {
 
 export interface DrinkRequisitionParams {
   token: string | undefined;
-  pizza_id?: string;
+  drink_id?: string;
   name: string;
   size: string;
   price: number;

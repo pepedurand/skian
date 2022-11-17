@@ -52,4 +52,50 @@ export class DrinkController {
       res.status(500).send({ message: "Erro inesperado" });
     }
   };
+  public editDrink = async (req: Request, res: Response) => {
+    try {
+      const input: DrinkRequisitionParams = {
+        token: req.headers.authorization,
+        drink_id: req.params.drink_id,
+        name: req.body.name,
+        size: req.body.size,
+        price: req.body.price,
+      };
+
+      const response = await this.drinkBusiness.editDrink(input);
+
+      res.status(200).send(response);
+    } catch (error) {
+      console.log(error);
+
+      if (error instanceof Error) {
+        return res.status(400).send({ message: error.message });
+      }
+
+      res.status(500).send({ message: "Erro inesperado" });
+    }
+  };
+  public deleteDrink = async (req: Request, res: Response) => {
+    try {
+      const input: DrinkRequisitionParams = {
+        token: req.headers.authorization,
+        drink_id: req.params.drink_id,
+        name: req.body.name,
+        size: req.body.size,
+        price: req.body.price,
+      };
+
+      const response = await this.drinkBusiness.deleteDrink(input);
+
+      res.status(200).send(response);
+    } catch (error) {
+      console.log(error);
+
+      if (error instanceof Error) {
+        return res.status(400).send({ message: error.message });
+      }
+
+      res.status(500).send({ message: "Erro inesperado" });
+    }
+  };
 }

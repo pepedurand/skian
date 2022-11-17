@@ -30,37 +30,37 @@ export default class DrinkDatabase extends BaseDatabase {
 
     return drinkListAtDb;
   };
-  //   public findPizzaById = async (pizza_id: string) => {
-  //     const foundPizza: PizzaTypesAtDatabase[] = await BaseDatabase.connections(
-  //       PizzaDatabase.PIZZAS
-  //     )
-  //       .select()
-  //       .where({ pizza_id });
+  public findDrinkById = async (drink_id: string) => {
+    const foundDrink: DrinkTypesAtDatabase[] = await BaseDatabase.connections(
+      DrinkDatabase.DRINKS
+    )
+      .select()
+      .where({ drink_id: drink_id });
 
-  //     return foundPizza[0];
-  //   };
-  //   public editPizza = async (pizza: Pizza) => {
-  //     const updatedPizza: PizzaTypesAtDatabase = {
-  //       pizza_id: pizza.getId(),
-  //       name: pizza.getName(),
-  //       description: pizza.getDescription(),
-  //       additional_price: pizza.getAdditionalPrice(),
-  //     };
+    return foundDrink[0];
+  };
+  public editDrink = async (drink: Drink) => {
+    const updatedDrink: DrinkTypesAtDatabase = {
+      drink_id: drink.getId(),
+      name: drink.getName(),
+      size: drink.getSize(),
+      price: drink.getPrice(),
+    };
 
-  //     await BaseDatabase.connections(PizzaDatabase.PIZZAS)
-  //       .update(updatedPizza)
-  //       .where({ pizza_id: updatedPizza.pizza_id });
-  //   };
-  //   public deletePizza = async (pizza: Pizza) => {
-  //     const deletedPizza: PizzaTypesAtDatabase = {
-  //       pizza_id: pizza.getId(),
-  //       name: pizza.getName(),
-  //       description: pizza.getDescription(),
-  //       additional_price: pizza.getAdditionalPrice(),
-  //     };
+    await BaseDatabase.connections(DrinkDatabase.DRINKS)
+      .update(updatedDrink)
+      .where({ drink_id: updatedDrink.drink_id });
+  };
+  public deleteDrink = async (drink: Drink) => {
+    const deletedDrink: DrinkTypesAtDatabase = {
+      drink_id: drink.getId(),
+      name: drink.getName(),
+      size: drink.getSize(),
+      price: drink.getPrice(),
+    };
 
-  //     await BaseDatabase.connections(PizzaDatabase.PIZZAS)
-  //       .delete()
-  //       .where({ pizza_id: deletedPizza.pizza_id });
-  //   };
+    await BaseDatabase.connections(DrinkDatabase.DRINKS)
+      .delete()
+      .where({ drink_id: deletedDrink.drink_id });
+  };
 }

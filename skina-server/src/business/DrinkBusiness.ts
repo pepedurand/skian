@@ -37,15 +37,15 @@ export default class DrinkBusiness {
     }
 
     if (payload.role !== UserRole.ADMIN) {
-      throw new Error("Apenas admins podem criar pizzas");
+      throw new Error("Apenas admins podem criar drinks");
     }
 
     const drink_id = new IdGenerator().generateId();
 
     const newDrink = new Drink(drink_id, name, size, price);
 
-    const pizzaDatabase = new DrinkDatabase();
-    await pizzaDatabase.createDrink(newDrink);
+    const drinkDatabase = new DrinkDatabase();
+    await drinkDatabase.createDrink(newDrink);
 
     const response = {
       message: `${name} adicionado com sucesso!`,
@@ -104,6 +104,94 @@ export default class DrinkBusiness {
 
     const response = {
       drinks: drinks,
+    };
+
+    return response;
+  };
+  public editDrink = async (input: DrinkRequisitionParams) => {
+    const { token, drink_id, name, size, price } = input;
+
+    if (!token) {
+      throw new Error("Token inválido ou faltando");
+    }
+
+    const payload = this.authenticator.getTokenData(token);
+
+    if (!payload) {
+      throw new Error("Token inválido");
+    }
+
+    if (payload.role !== UserRole.ADMIN) {
+      throw new Error("Apenas admins podem editar as bebidas");
+    }
+
+    if (!drink_id) {
+      throw new Error("Favor insira o id da bebida a ser alterada");
+    }
+
+    const selectedDrink = await this.drinkDatabase.findDrinkById(drink_id);
+
+    if (!selectedDrink) {
+      throw new Error("Bebida não existe");
+    }
+
+    const editedDrink = new Drink(
+      selectedDrink.drink_id,
+      selectedDrink.name,
+      selectedDrink.size,
+      selectedDrink.price
+    );
+
+    name && editedDrink.setName(name);
+    size && editedDrink.setSize(size);
+    price && editedDrink.setPrice(price);
+
+    await this.drinkDatabase.editDrink(editedDrink);
+
+    const response = {
+      message: "Edição realizada com sucesso",
+    };
+
+    return response;
+  };
+  public deleteDrink = async (input: DrinkRequisitionParams) => {
+    const { token, drink_id } = input;
+
+    if (!token) {
+      throw new Error("Token inválido ou faltando");
+    }
+
+    const payload = this.authenticator.getTokenData(token);
+
+    if (!payload) {
+      throw new Error("Token inválido");
+    }
+
+    if (payload.role !== UserRole.ADMIN) {
+      throw new Error("Apenas admins podem alterar status das bebidas");
+    }
+
+    if (!drink_id) {
+      throw new Error("Favor insira o id da bebida a ser alterada");
+    }
+
+    const selectedDrink = await this.drinkDatabase.findDrinkById(drink_id);
+
+    if (!selectedDrink) {
+      throw new Error("Bebida a ser excluída não existe");
+    }
+
+    const deletedDrink = new Drink(
+      selectedDrink.drink_id,
+      selectedDrink.name,
+      selectedDrink.size,
+      selectedDrink.price
+    );
+
+    await this.drinkDatabase.deleteDrink(deletedDrink);
+
+    const response = {
+      message: "Bebida excluída com sucesso",
     };
 
     return response;

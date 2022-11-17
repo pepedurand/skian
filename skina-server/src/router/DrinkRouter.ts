@@ -8,7 +8,7 @@ import { IdGenerator } from "../services/IdGenerator";
 
 export const drinkRouter = Router();
 
-const pizzaController = new DrinkController(
+const drinkController = new DrinkController(
   new DrinkBusiness(
     new DrinkDatabase(),
     new Authenticator(),
@@ -17,5 +17,7 @@ const pizzaController = new DrinkController(
   )
 );
 
-drinkRouter.post("/createDrink", pizzaController.createDrink);
-drinkRouter.get("/drinks", pizzaController.getDrinks);
+drinkRouter.post("/createDrink", drinkController.createDrink);
+drinkRouter.get("/drinks", drinkController.getDrinks);
+drinkRouter.put("/editDrink/:drink_id", drinkController.editDrink);
+drinkRouter.delete("/deleteDrink/:drink_id", drinkController.deleteDrink);
