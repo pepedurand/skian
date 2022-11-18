@@ -3,9 +3,14 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
+  "type": "module",
+  "engines": {
+    "node": "14.x"
+  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon"
+    "start": "ts-node ./src/index.ts",
+    "deploy": "vercel deploy --prod"
   },
   "keywords": [],
   "author": "",
@@ -23,7 +28,8 @@
     "jsonwebtoken": "^8.5.1",
     "ts-node-dev": "^2.0.0",
     "typescript": "^4.9.3",
-    "uuid": "^9.0.0"
+    "uuid": "^9.0.0",
+    "vercel": "^28.5.5"
   },
   "devDependencies": {
     "@types/cors": "^2.8.12",
