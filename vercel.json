@@ -2,14 +2,14 @@
   "version": 2,
   "builds": [
     {
-      "src": "./skina-server/src/index.ts",
+      "src": "./dist/index.ts",
       "use": "@vercel/node"
     }
   ],
   "routes": [
     {
       "src": "/(.*)",
-      "dest": "/skina-server/src/index.ts"
+      "dest": "/dist/index.ts"
     }
   ]
 }
